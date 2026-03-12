@@ -4,6 +4,9 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import Sugus from "./components/Sugus";
 
+import noticias from "./data/noticias.json";
+import Noticia from "./components/Noticias";
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -35,6 +38,11 @@ function App() {
       <Sugus sabor="piña" color="#227BBE" />
       <Sugus sabor="cereza" color="#AD3B52" />
       <Sugus sabor="fresa" color="#EA464C" />
+
+      <h1> Las Noticias </h1>
+      {noticias.map((noticia) => (
+        <Noticia key={noticia.id} noticia={noticia} />
+      ))}
     </>
   );
 }
