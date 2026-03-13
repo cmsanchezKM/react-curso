@@ -326,9 +326,8 @@ class PanelCodigoSecreto extends Component {
       codigoActual: ''
     }
   }
-```
+
 handleClick(event) {
-```tsx
 const teclaPulsada = event.target.textContent;
 const { codigoActual, codigoSecreto } = this.state;
 
@@ -447,18 +446,17 @@ class PanelCodigoSecreto extends Component {
     }
     this.handleClick = this.handleClick.bind(this);
   }
-```
 handleClick(event) {
-```tsx
+
 const teclaPulsada = event.target.textContent;
 const { codigoActual, codigoSecreto } = this.state;
 
 if (teclaPulsada === 'CLD') {
 
 } else if (teclaPulsada === 'DEL') {
-```
+
 } else {
-```tsx
+
 if (codigoActual.length < 4) {
 
     }
@@ -674,9 +672,9 @@ class PanelCodigoSecreto extends Component {
     }
     this.handleClick = this.handleClick.bind(this);
 }
-```
+
 handleClick(event) {
-```tsx
+
 const teclaPulsada = event.target.textContent;
 const { codigoActual, codigoSecreto } = this.state;
 
@@ -685,9 +683,9 @@ if (teclaPulsada === 'CLD') {
   nuevoCodigoActual = ''
 } else if (teclaPulsada === 'DEL') {
   nuevoCodigoActual = codigoActual.slice(0, codigoActual.length-1);
-```
+
 } else {
-```tsx
+
   if (codigoActual.length < 4) {
     nuevoCodigoActual = codigoActual + teclaPulsada;
     if (nuevoCodigoActual === codigoSecreto) {
