@@ -5,7 +5,8 @@ import noticias from "./data/noticias.json";
 import Noticia from "./components/Noticias";
 
 function App() {
-  const handleClick = () => {
+  const handleClick = (event: Event) => {
+    console.log(event);
     const textoIntro = new Array(16).join("wat") + "Batman!";
     const configSpeech = new SpeechSynthesisUtterance(textoIntro);
     configSpeech.rate = 0.8;
