@@ -1,8 +1,13 @@
-const Noticia = ({ noticia }) => {
+interface NoticiaProps {
+  titulo: string;
+  contenido: string;
+}
+
+const Noticia = ({ titulo, contenido }: NoticiaProps) => {
   return (
     <div>
-      <h2>{noticia.titulo}</h2>
-      <p>{noticia.contenido}</p>
+      <h2>{titulo}</h2>
+      <p>{contenido}</p>
     </div>
   );
 };

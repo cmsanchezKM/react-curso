@@ -1,6 +1,3 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import Sugus from "./components/Sugus";
 
@@ -8,41 +5,35 @@ import noticias from "./data/noticias.json";
 import Noticia from "./components/Noticias";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const handleClick = () => {
+    const textoIntro = new Array(16).join("wat") + "Batman!";
+    const configSpeech = new SpeechSynthesisUtterance(textoIntro);
+    configSpeech.rate = 0.8;
+    window.speechSynthesis.speak(configSpeech);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-
+      <h1> Los Sugus</h1>
       <Sugus sabor="limón" color="#FDE23A" />
       <Sugus sabor="naranja" color="#F28E40" />
       <Sugus sabor="piña" color="#227BBE" />
       <Sugus sabor="cereza" color="#AD3B52" />
       <Sugus sabor="fresa" color="#EA464C" />
 
-      <h1> Las Noticias </h1>
+      <h2> Las Noticias </h2>
       {noticias.map((noticia) => (
-        <Noticia key={noticia.id} noticia={noticia} />
+        <Noticia
+          key={noticia.id}
+          titulo={noticia.titulo}
+          contenido={noticia.contenido}
+        />
       ))}
+
+      <h2> Los Eventos </h2>
+      <button type="button" onClick={handleClick}>
+        Que suene la intro
+      </button>
     </>
   );
 }
