@@ -1,9 +1,12 @@
-import { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import "./App.css";
 import ClickCounterButton from "./ClickCounterButton/ClickCounterButton";
 import Autocomplete from "./Autocomplete/Autocomplete";
 import Acordeon from "./Acordeon/Acordeon";
 import violin from "./assets/violin.mp3";
+import CmpConsumidor from "./CmpConsumidor/CmpConsumidor";
+
+export const ThemeContext = React.createContext<React.CSSProperties>({});
 
 function App() {
   const [totalClicks, setTotalClicks] = useState(0);
@@ -17,20 +20,32 @@ function App() {
 
   const handlePlay = () => {
     audioRef.current?.play();
-  }
+  };
 
   const handlePause = () => {
     audioRef.current?.pause();
-  }
+  };
 
-    const handleChangeVolume = (event: ChangeEvent<HTMLInputElement>) => {
-    const nuevoVolumen = Number(event.target.value)
-    setVolumen(nuevoVolumen)
+  const handleChangeVolume = (event: ChangeEvent<HTMLInputElement>) => {
+    const nuevoVolumen = Number(event.target.value);
+    setVolumen(nuevoVolumen);
 
     if (audioRef.current) {
-      audioRef.current.volume = nuevoVolumen / 100
+      audioRef.current.volume = nuevoVolumen / 100;
     }
-  }
+  };
+
+  const [darkMode, setDarkMode] = useState(true);
+
+  const stylesThemeMode = darkMode
+    ? {
+        backgroundColor: "black",
+        color: "white",
+      }
+    : {
+        backgroundColor: "white",
+        color: "black",
+      };
 
   return (
     <div>
@@ -40,23 +55,28 @@ function App() {
       <Acordeon titulo="Una lista de productos">
         <ul>
           <li>Albahaca</li>
-           <li>Queso parmesano</li>
-           <li>Pechuga de pollo</li>
-           <li>Tomates</li>
+          <li>Queso parmesano</li>
+          <li>Pechuga de pollo</li>
+          <li>Tomates</li>
         </ul>
       </Acordeon>
 
       <Acordeon titulo="Librería JS" cerrado={false}>
         <div>
           <h4>¿Que es React?</h4>
-           <img src="https://www.svgrepo.com/show/452092/react.svg" alt="Logo de React"/>
-           <p>React es una librería de JS que permite pintar interfaces de usuario...</p>
-         </div>
+          <img
+            src="https://www.svgrepo.com/show/452092/react.svg"
+            alt="Logo de React"
+          />
+          <p>
+            React es una librería de JS que permite pintar interfaces de
+            usuario...
+          </p>
+        </div>
       </Acordeon>
 
       <ClickCounterButton onClickCountChange={handleChildClickCountChange} />
       <Autocomplete />
-
 
       <hr></hr>
 
@@ -78,6 +98,15 @@ function App() {
         onChange={handleChangeVolume}
       />
 
+      <hr></hr>
+
+      <button type="button" onClick={() => setDarkMode(!darkMode)}>
+        Activado {darkMode ? "ἱ" : "ἱ"}
+      </button>
+
+      <ThemeContext.Provider value={stylesThemeMode}>
+        <CmpConsumidor />
+      </ThemeContext.Provider>
     </div>
   );
 }
