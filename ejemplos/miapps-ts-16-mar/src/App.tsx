@@ -1,14 +1,36 @@
-import { useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import "./App.css";
 import ClickCounterButton from "./ClickCounterButton/ClickCounterButton";
 import Autocomplete from "./Autocomplete/Autocomplete";
 import Acordeon from "./Acordeon/Acordeon";
+import violin from "./assets/violin.mp3";
 
 function App() {
   const [totalClicks, setTotalClicks] = useState(0);
+  const [volumen, setVolumen] = useState(100);
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const handleChildClickCountChange = (totalClicksFromChild: number) => {
     setTotalClicks(totalClicksFromChild);
   };
+
+  const handlePlay = () => {
+    audioRef.current?.play();
+  }
+
+  const handlePause = () => {
+    audioRef.current?.pause();
+  }
+
+    const handleChangeVolume = (event: ChangeEvent<HTMLInputElement>) => {
+    const nuevoVolumen = Number(event.target.value)
+    setVolumen(nuevoVolumen)
+
+    if (audioRef.current) {
+      audioRef.current.volume = nuevoVolumen / 100
+    }
+  }
 
   return (
     <div>
@@ -34,6 +56,28 @@ function App() {
 
       <ClickCounterButton onClickCountChange={handleChildClickCountChange} />
       <Autocomplete />
+
+
+      <hr></hr>
+
+      <audio ref={audioRef} src={violin} />
+
+      <button type="button" onClick={handlePlay}>
+        Play
+      </button>
+
+      <button type="button" onClick={handlePause}>
+        Pause
+      </button>
+
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value={volumen}
+        onChange={handleChangeVolume}
+      />
+
     </div>
   );
 }
