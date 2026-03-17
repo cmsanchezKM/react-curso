@@ -3,6 +3,8 @@ import Boton from "./Boton/Boton";
 import withHover from "./hoc/witchHover";
 import InfoUsuario from "./components/InfoUsuario";
 import withData from "./hoc/withData";
+import Inicio from "./components/Inicio";
+import React, { Suspense } from "react";
 
 function App() {
   const InfoUsuarioWithData = withData(
@@ -10,7 +12,12 @@ function App() {
     "https://randomuser.me/api/",
   );
 
+  const Admin = React.lazy(() => import("./components/Admin"));
+
   const BotonWithHover = withHover(Boton);
+
+  const [esAdmin, setEsAdmin] = React.useState(false);
+
   return (
     <div>
       <InfoUsuarioWithData />
@@ -18,6 +25,18 @@ function App() {
       <BotonWithHover handleClick={() => alert("Bienvenid@s...")}>
         Dar bienvenida
       </BotonWithHover>
+
+      <button type="button" onClick={() => setEsAdmin(!esAdmin)}>
+        Toggle admin
+      </button>
+
+      {esAdmin ? (
+        <Suspense fallback={<div>Loading...</div>}>
+          <Admin />
+        </Suspense>
+      ) : (
+        <Inicio />
+      )}
     </div>
   );
 }
